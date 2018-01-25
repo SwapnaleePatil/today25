@@ -12,6 +12,7 @@ class ItemList extends React.Component
         this.updateTask=this.updateTask.bind(this);
         this.addTask=this.addTask.bind(this);
         this.deleteTask=this.deleteTask.bind(this);
+        this.editTask=this.editTask.bind(this);
         this.state={
          task:[{name:"Buy Milk",completed:false},
              {name:"Buy Bread",completed:false},
@@ -22,13 +23,23 @@ class ItemList extends React.Component
         }
 
     }
+    editTask(index,newValue){
+        let task=this.state.task;
+        var tasks=task[index];
+        tasks['name']=newValue;
+        this.setState({
+            task
+        })
+    }
     updateTask(newValue) {
+        console.log("currentTask:",newValue);
         this.setState({
             currentTask: newValue.target.value
         })
         console.log("currentTask:",newValue.target.value);
     }
     deleteTask(index) {
+
         console.log(index)
          let task=this.state.task;
         task.splice(index,1);
@@ -67,15 +78,17 @@ class ItemList extends React.Component
                     <ToDoForm currentTask={this.state.currentTask}
                               updateTask={this.updateTask}
                               addTask={this.addTask}
-                              deleteTask={this.deleteTask}
+
                     />
             <ul>
             {
                 this.state.task.map((task,index)=>{
                     return<ItemIn detail={task}
-                                  key={task.name}
+                                  key={index}
                                   clickHandler={this.changeStatus}
                                   index={index}
+                                  deleteTask={this.deleteTask}
+                                  editTask={this.editTask}
 
                     />
                 })

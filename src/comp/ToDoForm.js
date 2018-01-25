@@ -9,4 +9,10 @@ const ToDoForm =(props)=>{
         </form>
     )
 }
+
+ToDoForm.propTypes={
+    currentTask:React.PropTypes.string,
+    updateTask:React.PropTypes.func,
+    addTask:React.PropTypes.func
+}
 export default ToDoForm;
